@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsUsbDcMotorController;
 import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -46,8 +47,12 @@ public class Hardware {
     // Servo variable names
     public Servo leftLiftServo = null;
     public Servo rightLiftServo = null;
+    public Servo bottomRightLift = null;
+    public Servo bottomLeftLift = null;
     public Servo jewelServo = null;
     public Servo relicServo = null;
+    public CRServo leftIntake = null;
+    public CRServo rightIntake = null;
 
     // Sensor variable names
     public I2cDevice colori2C = null;
@@ -74,8 +79,8 @@ public class Hardware {
     private VoltageSensor voltageBoiRIGHT = null;
 
     // Constant variable names
-    public static final double LEFT_LIFT_OPEN = 0.96;
-    public static final double RIGHT_LIFT_OPEN = 0.82;
+    public static final double LEFT_LIFT_OPEN = 1;
+    public static final double RIGHT_LIFT_OPEN = 0.9;
 
     public Hardware()
     {
@@ -147,6 +152,10 @@ public class Hardware {
         rightLiftServo = hwMap.servo.get("right_servo");
         jewelServo = hwMap.servo.get("jewel_servo");
         relicServo = hwMap.servo.get("relic_servo");
+        bottomLeftLift = hwMap.servo.get("bottom_left_servo");
+        bottomRightLift = hwMap.servo.get("bottom_right_servo");
+        leftIntake = hwMap.crservo.get("left_intake");
+        rightIntake = hwMap.crservo.get("right_intake");
 
         // Initialize servos
         //leftLiftServo.scaleRange(0,1);
@@ -158,8 +167,13 @@ public class Hardware {
         jewelServo.setDirection(Servo.Direction.FORWARD);
         leftLiftServo.setPosition(LEFT_LIFT_OPEN);
         rightLiftServo.setPosition(RIGHT_LIFT_OPEN);
+        bottomRightLift.setPosition(RIGHT_LIFT_OPEN - 0.54);
+        bottomLeftLift.setPosition(LEFT_LIFT_OPEN);
         jewelServo.setPosition(0);
         relicServo.setPosition(0.5);
+        leftIntake.setPower(0);
+        rightIntake.setPower(0);
+
 
         // Define sensors
         int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
@@ -255,6 +269,7 @@ public class Hardware {
         jewelServo = hwMap.servo.get("jewel_servo");
         relicServo = hwMap.servo.get("relic_servo");
 
+
         // Initialize servos
         //leftLiftServo.scaleRange(0,1);
         //rightLiftServo.scaleRange(0,1);
@@ -267,6 +282,7 @@ public class Hardware {
         rightLiftServo.setPosition(RIGHT_LIFT_OPEN);
         jewelServo.setPosition(0);
         relicServo.setPosition(0.5);
+
 
         // Define sensors
         parameters = new BNO055IMU.Parameters();
@@ -334,8 +350,12 @@ public class Hardware {
         // Define servos
         leftLiftServo = hwMap.servo.get("left_servo");
         rightLiftServo = hwMap.servo.get("right_servo");
+        bottomLeftLift = hwMap.servo.get("bottom_left_servo");
+        bottomRightLift = hwMap.servo.get("bottom_right_servo");
         jewelServo = hwMap.servo.get("jewel_servo");
         relicServo = hwMap.servo.get("relic_servo");
+        leftIntake = hwMap.crservo.get("left_intake");
+        rightIntake = hwMap.crservo.get("right_intake");
 
         // Initialize servos
         //leftLiftServo.scaleRange(0,1);
@@ -347,8 +367,12 @@ public class Hardware {
         jewelServo.setDirection(Servo.Direction.FORWARD);
         leftLiftServo.setPosition(LEFT_LIFT_OPEN);
         rightLiftServo.setPosition(RIGHT_LIFT_OPEN);
+        bottomRightLift.setPosition(RIGHT_LIFT_OPEN-0.62);
+        bottomLeftLift.setPosition(LEFT_LIFT_OPEN);
         jewelServo.setPosition(0);
         relicServo.setPosition(0.5);
+        leftIntake.setPower(0);
+        rightIntake.setPower(0);
     }
 
     public double getTime(){

@@ -91,7 +91,7 @@ public class Auto_BLUE_RIGHT extends AUTO_METHODS{
         glideFindSpotBACKBR(vuValue);
         //lowerLiftMoreSlightly();
         autoRepositionFRONT(vuValue);
-
+        //getExtraBlock();
     }
 
 }

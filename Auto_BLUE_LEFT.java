@@ -49,7 +49,7 @@ public class Auto_BLUE_LEFT extends AUTO_METHODS{
         //CALL WHATEVER METHODS HERE:
         closeClaw();
         lowerJewelServo();
-        sleepTau(500);
+        sleepTau(350);
         raiseLiftSlightly();
         jewelValue = getJewel();
         if (jewelValue == 10) {
@@ -78,20 +78,24 @@ public class Auto_BLUE_LEFT extends AUTO_METHODS{
         vuValue = rightGetVuSMALL();
         telemetry.addData("VuMark", vuValue);
         updateTelemetry(telemetry);
-        turnToDegree(0.35,90);
-        sleepTau(1600);
-        turnToDegree(0.05,87);
-        sleepTau(800);
-        driveRightStraightDISTANCE(0.3, 1.2);
-        sleepTau(1200);
+        turnToDegree(0.45,-1);
+        sleepTau(1000);
+        driveBackwardStraightDISTANCE(0.5, 1.2);
+        sleepTau(1000);
+        turnToDegree(0.5,90);
+        sleepTau(1100);
+        //turnToDegree(0.05,90);
+        //sleepTau(800);
+        //driveRightStraightDISTANCE(0.3, 1.2);
+        //sleepTau(1200);
         glideFindRightWallBlue();
-        sleepTau(250);
+        sleepTau(150);
         turnToDegree(0.1,90);
         sleepTau(800);
         glideFindSpotBACKBL(vuValue);
         //lowerLiftSlightly();
         autoRepositionSIDEBLUE(vuValue);
-
+        //getExtraBlock();
     }
 
 }

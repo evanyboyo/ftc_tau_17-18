@@ -90,6 +90,7 @@ public class Auto_RED_LEFT extends AUTO_METHODS{
         glideFindSpotFL(vuValue);
 
         autoRepositionFRONT(vuValue);
+        //getExtraBlock();//robot.fillCipher();robot.changeNumber(9048);robot.knockCypherOver();
 
 
 

@@ -211,7 +211,7 @@ class AUTO_METHODS extends LinearOpMode{
 
     //negative degree is left turn, positive is right turn
     public void turnDegree(double speed, double degree){
-        resetEncoderToReal();
+        //resetEncoderToReal();
         speed(speed);
         Log.i(TAG,"IMU Heading: "+imu.getAngularOrientation().firstAngle);
         telemetry.addData("IMU", "" + imu.getAngularOrientation().firstAngle);
@@ -349,7 +349,6 @@ class AUTO_METHODS extends LinearOpMode{
                 turnDegree(0.55,-180);
                 sleepTau(1250);
                 lowerLiftMoreSlightly();
-
                 done = true;
                 break;
             }
@@ -431,7 +430,7 @@ class AUTO_METHODS extends LinearOpMode{
                 done = true;
                 break;
             }
-
+            turnDegree(0.5,45);
         }
         if (!done) {
             glideEnd = robot.getTime() + 6;
@@ -576,7 +575,7 @@ class AUTO_METHODS extends LinearOpMode{
         int cryptoCounter = 0;
         double distValues = rightRangeSensor.getDistance(DistanceUnit.CM);
         double tempValues = distValues;
-        driveBackwardStraightDISTANCE(0.11,1.1);
+        driveBackwardStraightDISTANCE(0.13,1.1);
         boolean done = false;
 
 
@@ -666,7 +665,7 @@ class AUTO_METHODS extends LinearOpMode{
                 turnToDegree(0.45,86);
                 sleepTau(1050);
                 driveForwardStraightDISTANCE(0.3,1);
-                sleepTau(1300);
+                sleepTau(1200);
                 stopRobot();
                 openClaw();
                 sleepTau(650);
@@ -687,7 +686,7 @@ class AUTO_METHODS extends LinearOpMode{
                 turnToDegree(0.45,86);
                 sleepTau(1050);
                 driveForwardStraightDISTANCE(0.3,1);
-                sleepTau(1300);
+                sleepTau(1400);
                 stopRobot();
                 openClaw();
                 sleepTau(650);
@@ -707,7 +706,7 @@ class AUTO_METHODS extends LinearOpMode{
                 turnToDegree(0.45,86);
                 sleepTau(1050);
                 driveForwardStraightDISTANCE(0.3,1);
-                sleepTau(1300);
+                sleepTau(1200);
                 stopRobot();
                 openClaw();
                 sleepTau(650);
@@ -744,7 +743,7 @@ class AUTO_METHODS extends LinearOpMode{
                     turnToDegree(0.45,86);
                     sleepTau(1050);
                     driveForwardStraightDISTANCE(0.3,1);
-                    sleepTau(1500);
+                    sleepTau(1400);
                     stopRobot();
                     openClaw();
                     sleepTau(50);
@@ -760,7 +759,7 @@ class AUTO_METHODS extends LinearOpMode{
                     turnToDegree(0.45,86);
                     sleepTau(1050);
                     driveForwardStraightDISTANCE(0.3,1);
-                    sleepTau(1500);
+                    sleepTau(1400);
                     stopRobot();
                     openClaw();
                     sleepTau(50);
@@ -777,7 +776,7 @@ class AUTO_METHODS extends LinearOpMode{
                     turnToDegree(0.45,86);
                     sleepTau(1050);
                     driveForwardStraightDISTANCE(0.3,1);
-                    sleepTau(1500);
+                    sleepTau(1400);
                     stopRobot();
                     openClaw();
                     sleepTau(50);
@@ -874,7 +873,7 @@ class AUTO_METHODS extends LinearOpMode{
                 return "" + vumark;
             }
             else{
-                if(!doneOnce){turnDegree(0.14,-7.5);doneOnce = !doneOnce;}
+                if(!doneOnce){turnDegree(0.16,-7.5);doneOnce = !doneOnce;}
                 vumark = RelicRecoveryVuMark.from(robot.relicTemplate);
             }
         }
@@ -903,7 +902,7 @@ class AUTO_METHODS extends LinearOpMode{
     }
     public void raiseLiftMoreSlightly(){
         liftSpeed(-0.45);
-        sleepTau(450);
+        sleepTau(475);
         liftSpeed(0);
     }
     public void lowerLiftMoreSlightly(){
@@ -1035,15 +1034,35 @@ class AUTO_METHODS extends LinearOpMode{
     public void pokeClaw(){
         robot.leftLiftServo.setPosition(0.54);
         robot.rightLiftServo.setPosition(0.40);
+        robot.bottomLeftLift.setPosition(0.54);
+        robot.bottomRightLift.setPosition(0.40);
     }
 
     public void openClaw(){
         robot.leftLiftServo.setPosition(0.89);
         robot.rightLiftServo.setPosition(0.75);
+        robot.bottomLeftLift.setPosition(0.89);
+        robot.bottomRightLift.setPosition(0.15);
     }
     public void closeClaw(){
         robot.leftLiftServo.setPosition(0.29);
         robot.rightLiftServo.setPosition(0.15);
+        robot.bottomLeftLift.setPosition(0.29);
+        robot.bottomRightLift.setPosition(0.75);
+    }
+    public void spitBlock(){
+        robot.rightIntake.setPower(1);
+        robot.leftIntake.setPower(-1);
+        sleepTau(1000);
+        robot.rightIntake.setPower(0);
+        robot.leftIntake.setPower(0);
+    }
+    public void intakeBlock(){
+        robot.rightIntake.setPower(-1);
+        robot.leftIntake.setPower(1);
+        sleepTau(1000);
+        robot.rightIntake.setPower(0);
+        robot.leftIntake.setPower(0);
     }
     public int getJewel(){
         jewelEnd = robot.getTime() + 1;
@@ -1059,7 +1078,29 @@ class AUTO_METHODS extends LinearOpMode{
         }
         return 69;
     }
-
+   public void getExtraBlock(){
+        //if(robot.getTime() < 300){
+            turnDegree(0.5,45);
+            lowerLiftSlightly();
+            sleepTau(1000);
+            driveForwardStraightDISTANCE(0.5,0.8);
+            sleepTau(1000);
+            closeClaw();
+            sleepTau(200);
+            intakeBlock();
+            sleepTau(800);
+            turnDegree(0.6,-180);
+            raiseLiftEntireBlock();
+            sleepTau(1500);
+            driveForwardStraightDISTANCE(0.5,1.2);
+            sleepTau(1500);
+            turnDegree(0.6,45);
+            sleepTau(800);
+            //driveForwardStraightDISTANCE(0.25,0.4);
+            //sleepTau(750);
+            spitBlock();
+        //}
+    }
     public void lowerJewelServo(){
         robot.jewelServo.setPosition(0.95);
     }
@@ -1080,7 +1121,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = true;
         backRightGradiantSign = false;
         setDistances(distances,-distances,distances,-distances);
-        setGradiants(distancegradiant,-distancegradiant,distancegradiant,-distancegradiant);
+        //setGradiants(distancegradiant,-distancegradiant,distancegradiant,-distancegradiant);
         runDistances();
 
     }
@@ -1095,7 +1136,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = false;
         backRightGradiantSign = true;
         setDistances(-distances,distances,-distances, distances);
-        setGradiants(-distancegradiant,distancegradiant,-distancegradiant,distancegradiant);
+        //setGradiants(-distancegradiant,distancegradiant,-distancegradiant,distancegradiant);
         runDistances();
 
     }
@@ -1110,7 +1151,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = false;
         backRightGradiantSign = false;
         setDistances(distances,distances,-distances, -distances);
-        setGradiants(distancegradiant,distancegradiant,-distancegradiant,-distancegradiant);
+       //setGradiants(distancegradiant,distancegradiant,-distancegradiant,-distancegradiant);
         runDistances();
 
     }
@@ -1125,7 +1166,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = true;
         backRightGradiantSign = true;
         setDistances(-distances,-distances,distances, distances);
-        setGradiants(-distancegradiant,-distancegradiant,distancegradiant,distancegradiant);
+       //setGradiants(-distancegradiant,-distancegradiant,distancegradiant,distancegradiant);
         runDistances();
     }
     public void driveNWStraightDISTANCE(double distance){
@@ -1168,7 +1209,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = true;
         backRightGradiantSign = false;
         setDistances(distances,-distances,distances,-distances);
-        setGradiants(distancegradiant,-distancegradiant,distancegradiant,-distancegradiant);
+       //setGradiants(distancegradiant,-distancegradiant,distancegradiant,-distancegradiant);
         runDistances();
     }
     public void driveBackwardStraightDISTANCE(double speed, double distance){
@@ -1182,7 +1223,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = false;
         backRightGradiantSign = true;
         setDistances(-distances,distances,-distances, distances);
-        setGradiants(-distancegradiant,distancegradiant,-distancegradiant,distancegradiant);
+       //setGradiants(-distancegradiant,distancegradiant,-distancegradiant,distancegradiant);
         runDistances();
     }
     public void driveRightStraightDISTANCE(double speed, double distance){
@@ -1196,7 +1237,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = false;
         backRightGradiantSign = false;
         setDistances(distances,distances,-distances, -distances);
-        setGradiants(distancegradiant,distancegradiant,-distancegradiant,-distancegradiant);
+       //setGradiants(distancegradiant,distancegradiant,-distancegradiant,-distancegradiant);
         runDistances();
     }
     public void driveLeftStraightDISTANCE(double speed, double distance){
@@ -1210,7 +1251,7 @@ class AUTO_METHODS extends LinearOpMode{
         backLeftGradiantSign = true;
         backRightGradiantSign = true;
         setDistances(-distances,-distances,distances, distances);
-        setGradiants(-distancegradiant,-distancegradiant,distancegradiant,distancegradiant);
+       //setGradiants(-distancegradiant,-distancegradiant,distancegradiant,distancegradiant);
         runDistances();
     }
     public void driveNWStraightDISTANCE(double speed, double distance){
@@ -1266,7 +1307,7 @@ class AUTO_METHODS extends LinearOpMode{
         sleepTau(1500);
         stopRobot();
         openClaw();
-        driveBackwardStraightDISTANCE(0.3,0.45);
+        driveBackwardStraightDISTANCE(0.3,0.35);
         sleepTau(1400);
         turnToDegree(0.6,-90);
         sleepTau(1500);
@@ -1407,6 +1448,7 @@ class AUTO_METHODS extends LinearOpMode{
         frontRightMotorPositionGradiant += fr;
         backLeftMotorPositionGradiant += bl;
         backRightMotorPositionGradiant += br;
+        
         frontLeftMotorPositionFirstGradiant += fl/Math.abs(fl)*50;
         frontRightMotorPositionFirstGradiant += fr/Math.abs(fr)*50;
         backLeftMotorPositionFirstGradiant += bl/Math.abs(bl)*50;

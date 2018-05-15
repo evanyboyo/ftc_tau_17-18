@@ -73,6 +73,7 @@ public class Auto_RED_RIGHT extends AUTO_METHODS{
         glideFindSpotFR(vuValue);
         //lowerLiftSlightly();
         autoRepositionSideRED(vuValue);
+        //getExtraBlock();
 
 
 
