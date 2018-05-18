@@ -493,7 +493,7 @@ public class Teleop extends OpMode {
         /***********************
          * Open and close claw *
          ***********************/
-        if(closeClaw){
+        /*if(closeClaw){
            leftLiftPos = LEFT_LIFT_CLOSE;
            bottomLeftPos = LEFT_LIFT_CLOSE;
            rightLiftPos = RIGHT_LIFT_CLOSE;
@@ -503,7 +503,7 @@ public class Teleop extends OpMode {
            bottomLeftPos = LEFT_LIFT_OPEN;
            rightLiftPos = RIGHT_LIFT_OPEN;
            bottomRightPos = RIGHT_LIFT_CLOSE;
-       }
+       }*/
         robot.leftLiftServo.setPosition(leftLiftPos + (slowOpen ? 0.06 : 0));
         robot.rightLiftServo.setPosition(rightLiftPos + (slowOpen ? 0.06 : 0));
         robot.bottomRightLift.setPosition(bottomRightPos + (slowOpen ? 0.17 : 0));
@@ -516,6 +516,18 @@ public class Teleop extends OpMode {
         }
         if(gamepad2.a && (endTimeX3 == 0 || robot.getTime() > endTimeX3)){
             closeClaw = !closeClaw;
+            if(closeClaw){
+                leftLiftPos = LEFT_LIFT_CLOSE;
+                bottomLeftPos = LEFT_LIFT_CLOSE;
+                rightLiftPos = RIGHT_LIFT_CLOSE;
+                bottomRightPos = RIGHT_LIFT_OPEN;
+            }else {
+                leftLiftPos = LEFT_LIFT_OPEN;
+                bottomLeftPos = LEFT_LIFT_OPEN;
+                rightLiftPos = RIGHT_LIFT_OPEN;
+                bottomRightPos = RIGHT_LIFT_CLOSE;
+            }
+
             endTimeX3 = robot.getTime() + 0.5;
         }
         if(gamepad2.x && (endTimeX4 == 0 || robot.getTime() > endTimeX4)){
