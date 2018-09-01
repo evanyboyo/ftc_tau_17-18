@@ -15,44 +15,44 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-/**
- * "Created" by Evan Yu on 9/16/2017.
- */
-@TeleOp(name = "Tau: Teleop", group="Tau")
+    /**
+     * "Created" by Evan Yu on 9/16/2017.
+     */
+    @TeleOp(name = "Tau: Teleop", group="Tau")
 //Uncomment below to show up after run
 //@Disabled
-public class Teleop extends OpMode {
+    public class Teleop extends OpMode {
 
-    Hardware robot = new Hardware();
+        Hardware robot = new Hardware();
 
-    //Drive Variables
-    //private BNO055IMU imu;
-    private double leftGP1Y = 0;
-    private double leftGP1X = 0;
-    private double frontleftPOWER = 0;
-    private double frontrightPOWER = 0;
-    private double backleftPOWER = 0;
-    private double backrightPOWER = 0;
-    private double maxPOWER = 0;
-    private double leftIntakePower = 0;
-    private double rightIntakePower = 0;
-    private final double triggerConstant = 0.75;
-    private final double maxPOWERConstant = 0.8;
-    private boolean speedToggle = true;
-    private double speedToggleMultiplier = 0.6; // Between 0.25 and 0.85
-    private double endTimeB = 0;
-    private double endTimeS = 0;
-    private double endTimeX = 0;
-    private double endTimeX2 = 0;
-    private double endTimeX3 = 0;
-    private double endTimeX4 = 0;
-    private double endTimeX5 = 0;
-    private double length = 0;
-    private double initAngle = 0;
-    private double angle = 0;
-    private boolean absoluteDrive = false;
-    private boolean slowOpen = true;
-    private boolean closeClaw = false;
+        //Drive Variables
+        //private BNO055IMU imu;
+        private double leftGP1Y = 0;
+        private double leftGP1X = 0;
+        private double frontleftPOWER = 0;
+        private double frontrightPOWER = 0;
+        private double backleftPOWER = 0;
+        private double backrightPOWER = 0;
+        private double maxPOWER = 0;
+        private double leftIntakePower = 0;
+        private double rightIntakePower = 0;
+        private final double triggerConstant = 0.75;
+        private final double maxPOWERConstant = 0.8;
+        private boolean speedToggle = true;
+        private double speedToggleMultiplier = 0.6; // Between 0.25 and 0.85
+        private double endTimeB = 0;
+        private double endTimeS = 0;
+        private double endTimeX = 0;
+        private double endTimeX2 = 0;
+        private double endTimeX3 = 0;
+        private double endTimeX4 = 0;
+        private double endTimeX5 = 0;
+        private double length = 0;
+        private double initAngle = 0;
+        private double angle = 0;
+        private boolean absoluteDrive = false;
+        private boolean slowOpen = true;
+        private boolean closeClaw = false;
 
     //Lift Variables
 
